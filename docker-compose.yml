@@ -1,0 +1,46 @@
+services:
+
+  db:
+    image: postgres:16
+    container_name: hubbi_postgres
+
+    environment:
+      POSTGRES_DB: hubbi
+      POSTGRES_USER: hubbi
+      POSTGRES_PASSWORD: hubbi123
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    container_name: hubbi_redis
+
+    ports:
+      - "6379:6379"
+
+  web:
+    build: .
+
+    container_name: hubbi_api
+
+    command: python manage.py runserver 0.0.0.0:8000
+
+    volumes:
+      - .:/app
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      - db
+      - redis
+
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:
