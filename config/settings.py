@@ -21,6 +21,7 @@ ALLOWED_HOSTS = os.getenv(
     "localhost,127.0.0.1"
 ).split(",")
 
+AUTH_USER_MODEL = "users.User"
 
 # =========================
 # APPLICATIONS
@@ -180,3 +181,16 @@ STATIC_URL = "static/"
 # =========================
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# CELERY
+CELERY_BROKER_URL = os.getenv("REDIS_URL")
+
+CELERY_RESULT_BACKEND = os.getenv("REDIS_URL")
+
+CELERY_ACCEPT_CONTENT = ["json"]
+
+CELERY_TASK_SERIALIZER = "json"
+
+CELERY_RESULT_SERIALIZER = "json"
+
+CELERY_TIMEZONE = TIME_ZONE
