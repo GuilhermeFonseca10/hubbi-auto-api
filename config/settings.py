@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "apps.ai",
     "apps.integrations",
     "apps.common",
+    "apps.consultant",
 ]
 
 

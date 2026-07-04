@@ -16,6 +16,10 @@ urlpatterns = [
     
     path("api/", include("apps.common.urls")),
     path("api/", include("apps.products.urls")),
+    path(
+        "api/consultor/",
+        include("apps.consultant.urls"),
+    ),
     
     # JWT
     path("api/token/", TokenObtainPairView.as_view()),
