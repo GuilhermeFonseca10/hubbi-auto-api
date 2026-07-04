@@ -1,7 +1,7 @@
 from pathlib import Path
 import csv
 import logging
-
+from apps.products.models import Product
 from django.conf import settings
 from django.core.files.storage import default_storage
 
@@ -21,7 +21,11 @@ class ProductImportService:
         self.file_path = file_path
 
     def execute(self):
-        return self._read_csv()
+        products = self._read_csv()
+
+        self._save_products(products)
+
+        return len(products)
 
     def _read_csv(self):
         import csv
@@ -68,3 +72,20 @@ class ProductImportService:
                 })
 
         return products
+    
+    def _save_products(self, products):
+        """
+        Persiste os produtos lidos do CSV utilizando bulk_create.
+        """
+
+        product_instances = [
+            Product(
+                name=product["name"],
+                description=product["description"],
+                price=product["price"],
+                quantity=product["quantity"],
+            )
+            for product in products
+        ]
+
+        Product.objects.bulk_create(product_instances)

@@ -11,6 +11,10 @@ def import_products_task(file_path: str) -> None:
     logger.info("Arquivo recebido para importação: %s", file_path)
 
     service = ProductImportService(file_path)
-    products = service.execute()
 
-    logger.info("Produtos extraídos do CSV: %s", products)
+    total_products = service.execute()
+
+    logger.info(
+        "%s produtos importados com sucesso.",
+        total_products,
+    )
