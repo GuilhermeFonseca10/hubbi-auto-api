@@ -20,7 +20,10 @@ urlpatterns = [
         "api/consultor/",
         include("apps.consultant.urls"),
     ),
-    
+    path(
+        "api/integrations/",
+        include("apps.integrations.urls"),
+    ),
     # JWT
     path("api/token/", TokenObtainPairView.as_view()),
     path("api/token/refresh/", TokenRefreshView.as_view()),
