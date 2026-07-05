@@ -40,16 +40,16 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "drf_spectacular",
     "django_filters",
+    "import_export", 
 
     # local apps
     "apps.users",
     "apps.products",
-    "apps.ai",
     "apps.integrations",
     "apps.common",
     "apps.consultant",
 ]
-
+ 
 
 # =========================
 # MIDDLEWARE
@@ -137,6 +137,7 @@ REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": (
         "django_filters.rest_framework.DjangoFilterBackend",
     ),
+    "EXCEPTION_HANDLER": "apps.common.exceptions.custom_exception_handler",
 }
 
 

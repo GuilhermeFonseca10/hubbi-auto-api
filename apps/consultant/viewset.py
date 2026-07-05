@@ -15,9 +15,20 @@ class ConsultantViewSet(ViewSet):
     permission_classes = [IsAuthenticated]
 
     @extend_schema(
+        summary="Consulta de IA para recomendação de peças",
+        description="Envia a mensagem do cliente ao consultor de IA e retorna uma resposta baseada no catálogo de produtos.",
         request=ConsultantSerializer,
-        responses={200: ConsultantSerializer},
-        description="Consulta o assistente de IA para sugerir peças automotivas.",
+        responses={
+            200: {
+                "description": "Resposta gerada pelo consultor de IA.",
+                "content": {
+                    "application/json": {
+                        "example": {"answer": "Sugestão de peça para o cliente..."}
+                    }
+                },
+            }
+        },
+        tags=["Consultor"],
     )
     @action(
         detail=False,

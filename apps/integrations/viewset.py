@@ -14,8 +14,20 @@ class IntegrationViewSet(ViewSet):
     permission_classes = [HasApiKey]
 
     @extend_schema(
+        summary="Atualizar estoque via integração externa",
+        description="Recebe uma lista de produtos com quantidades e atualiza o estoque no sistema.",
         request=StockUpdateSerializer,
-        responses={200: None},
+        responses={
+            200: {
+                "description": "Estoque atualizado com sucesso.",
+                "content": {
+                    "application/json": {
+                        "example": {"message": "Estoque atualizado com sucesso."}
+                    }
+                },
+            }
+        },
+        tags=["Integrações"],
     )
     def create(self, request):
 

@@ -9,9 +9,11 @@ logger = logging.getLogger(__name__)
 
 
 class ProductImportService:
+    """Serviço responsável por persistir produtos enviados via CSV."""
 
     @staticmethod
     def save_uploaded_file(file) -> str:
+        """Salva o arquivo CSV enviado para o storage e retorna o caminho físico."""
         upload_path = Path("imports") / file.name
         saved_path = default_storage.save(str(upload_path), file)
 

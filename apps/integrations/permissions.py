@@ -1,4 +1,5 @@
 from django.conf import settings
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import BasePermission
 
 
@@ -9,4 +10,10 @@ class HasApiKey(BasePermission):
     def has_permission(self, request, view):
         api_key = request.headers.get("X-API-Key")
 
-        return api_key == settings.API_KEY
+        if api_key is None:
+            return False
+
+        if api_key != settings.API_KEY:
+            raise PermissionDenied(self.message)
+
+        return True

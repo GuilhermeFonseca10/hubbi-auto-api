@@ -1,4 +1,5 @@
 from django.db import transaction
+from rest_framework.exceptions import NotFound
 
 from apps.products.models import Product
 
@@ -18,7 +19,7 @@ class StockIntegrationService:
             ).first()
 
             if not product:
-                raise Product.DoesNotExist(
+                raise NotFound(
                     f"Produto {item['id']} não encontrado."
                 )
 
