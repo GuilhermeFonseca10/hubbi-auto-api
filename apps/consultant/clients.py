@@ -1,6 +1,18 @@
-class LLMClient:
-    """
-    Cliente responsável pela comunicação com a LLM.
-    """
+from django.conf import settings
+from google import genai
 
-    pass
+
+class GeminiClient:
+
+    def __init__(self):
+        self.client = genai.Client(
+            api_key=settings.GEMINI_API_KEY
+        )
+
+    def generate(self, prompt: str) -> str:
+        response = self.client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt,
+        )
+
+        return response.text

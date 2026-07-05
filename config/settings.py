@@ -55,6 +55,8 @@ INSTALLED_APPS = [
 # MIDDLEWARE
 # =========================
 
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
